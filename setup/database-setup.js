@@ -1,5 +1,6 @@
 const fs = require('fs');
-const databasePath = '../.db/database.db';
+// don't forget this runs via docker-compose command, which is same directory as the .db folder
+const databasePath = '.db/database.db';
 try {
     if (fs.existsSync(databasePath)) {
         console.log('database exists');

@@ -3,3 +3,7 @@
 
 # logs
 npm-debug.log*
+
+#misc
+.env
+/.db
