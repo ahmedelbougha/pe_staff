@@ -8,7 +8,7 @@ exports.login = async (req, res, next) => {
     const password = req.body.password;
 
     try {
-        // simplified authentication using static email and password (ahmed@test.com - test123)
+        // simplified authentication using static email and password
         const hashPass = await bcrypt.hash(process.env.PASSWORD, 12);
         const arePasswordsEqual = await bcrypt.compare(password, hashPass);
 
