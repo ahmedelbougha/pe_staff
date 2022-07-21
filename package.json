@@ -28,6 +28,9 @@
     "express.js": "^1.0.0"
   },
   "devDependencies": {
+    "chai": "^4.3.6",
+    "eslint": "^8.20.0",
+    "mocha": "^10.0.0",
     "nodemon": "^2.0.19"
   }
 }

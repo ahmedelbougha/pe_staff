@@ -11,7 +11,6 @@ app.use((req, res, next) => {
     "GET, POST, PATCH, PUT, DELETE"
   );
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Content-Type", "application/json");
   next();
 });
 
