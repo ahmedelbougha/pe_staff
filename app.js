@@ -9,6 +9,8 @@ const isAuthMiddleware = require("./src/middleware/is-auth");
 
 // get routes for authentication
 const authRoutes = require("./src/routes/auth");
+// get routes for staff
+const staffRoutes = require("./src/routes/staff");
 
 const app = new express();
 app.use(bodyParser.json());
@@ -17,6 +19,7 @@ app.use(bodyParser.json());
 app.use(corsMiddleware);
 
 app.use("/auth", authRoutes);
+app.use("/staff", staffRoutes);
 
 app.use("/", isAuthMiddleware, (req, res, next) => {
   try {
