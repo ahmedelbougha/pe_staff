@@ -8,7 +8,7 @@ exports.login = async (req, res, next) => {
     const password = req.body.password;
 
     try {
-        // simplified authentication using static email and password
+        // simplified authentication using static email and password from environment file .env
         const hashPass = await bcrypt.hash(process.env.PASSWORD, 12);
         const arePasswordsEqual = await bcrypt.compare(password, hashPass);
 
@@ -19,9 +19,10 @@ exports.login = async (req, res, next) => {
             throw error;
         }
 
-        // Create jwt token with simple data (email) that expires in 1 hour
+        // Create JWT token with simple data (email) that expires in 1 hour
         const token = jwt.sign({ email: email }, process.env.SECRET_TOKEN, { expiresIn: "1h" });
 
+        // Return success message with response 200 OK
         res.status(200).json({
             message: "Login Successfully",
             token: token,

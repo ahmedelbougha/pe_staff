@@ -1,50 +1,33 @@
-const jwt = require("jsonwebtoken");
 const expect = require("chai").expect;
-const sinon = require("sinon");
 
 const authMiddleware = require("../../src/middleware/is-auth");
 
-describe("Auth Middleware", () => {
+describe("Auth Middleware Test Scenarios", () => {
     it("should test the middleware passing unauthorized in case of Authorization header not present", () => {
+        //mock a request object
         const req = {
             get: (headerName) => {
                 return null;
             },
         };
-
+        //check the case if JWT is not present (empty)
         expect(authMiddleware.bind(this, req, {}, () => { })).to.throw(
             "Not authenticated!"
         );
     });
 
-    it("should test the middleware throws error if Authorization header is one peiece string", () => {
+    it("should test the middleware throws error if Authorization header is one piece string", () => {
         const req = {
             get: (headerName) => {
                 return "thisisonepiecestring";
             },
         };
-
+        //check the case if JWT is not valid
         expect(authMiddleware.bind(this, req, {}, () => { })).to.throw(
             "jwt must be provided"
         );
     });
 
-    it("should return userId in req object", () => {
-        const req = {
-            get: (header) => {
-                return "Bearer 0000000000000000000000000000000";
-            },
-        };
-        sinon.stub(jwt, "verify");
-        jwt.verify.returns({ id: "123456789" });
-
-        authMiddleware(req, {}, () => { });
-        expect(req).to.have.property("userId");
-        expect(req).to.have.property("userId", "123456789");
-        expect(jwt.verify.called).to.be.true;
-
-        jwt.verify.restore();
-    });
 
     it("should throw an error if the token is marlformed", () => {
         const req = {
@@ -54,6 +37,7 @@ describe("Auth Middleware", () => {
                 }
             },
         };
-        expect(authMiddleware.bind(this, req, {}, () => { })).to.throw(); //   "jwt malformed"
+        //check the case if JWT is malformed
+        expect(authMiddleware.bind(this, req, {}, () => { })).to.throw();
     });
 });

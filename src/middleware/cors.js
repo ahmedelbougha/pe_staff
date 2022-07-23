@@ -1,4 +1,4 @@
-//CORS middleware
+//CORS middleware to allow access from all origins
 module.exports = (req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(

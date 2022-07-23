@@ -1,9 +1,7 @@
-// just to get email and password from environment file
-require('dotenv').config();
 const sinon = require("sinon");
 const sinonChai = require("sinon-chai");
 const chai = require("chai");
-expect = chai.expect
+const expect = chai.expect
 chai.use(sinonChai);
 
 const StaffController = require("../../src/controllers/staff");
@@ -25,7 +23,7 @@ let jsonSpy,
     statusStub,
     responseStub;
 
-describe("Staff Controller", function () {
+describe("Staff Controller Test Scenarios", function () {
     beforeEach(() => {
         jsonSpy = sinon.spy();
         statusStub = sinon.stub();
@@ -37,10 +35,12 @@ describe("Staff Controller", function () {
     });
 
     it("should return staff members", async () => {
+        //stub the getStaffMembers function to return a fake result
         sinon.stub(StaffModel, 'getStaffMembers');
         StaffModel.getStaffMembers.returns(fakeFetchedObject);
-
+        //call the getStaffMembers function
         await StaffController.getStaffMembers({}, responseStub, () => { });
+        //check the response object status and json
         expect(responseStub.status).to.be.calledWith(200);
         expect(responseStub.json).to.be.calledWith({
             message: "Staff members has been fetched successfully!", staff: fakeFetchedObject

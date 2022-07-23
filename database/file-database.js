@@ -2,8 +2,10 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-//connect with SQLite database
+// connect with SQLite database
 const databasePath = path.join(__dirname, '../.db', 'database.db');
+
+// connecting to file database
 const appDatabase = new sqlite3.Database(databasePath, sqlite3.OPEN_READWRITE, err => {
     if (err) {
         console.error(err.message);

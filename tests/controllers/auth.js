@@ -15,7 +15,7 @@ const res = {
 
 const AuthController = require("../../src/controllers/auth");
 
-describe("Auth Controller - Login", function () {
+describe("Auth Controller Test Scenarios", function () {
     it("should throw an error if wrong email or password", async () => {
         const req = {
             body: {
@@ -24,13 +24,13 @@ describe("Auth Controller - Login", function () {
             },
         };
         const result = await AuthController.login(req, {}, () => { });
-        // console.log(result);
         expect(result).to.be.an("error");
         expect(result).to.have.property("statusCode", 401);
         expect(result).to.have.property("message", "Invalid email or password!");
 
     });
     it("should pass and return token if email and password are correct", async () => {
+        //check if correct/user or email pass
         const req = {
             body: {
                 email: process.env.EMAIL,
