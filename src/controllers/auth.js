@@ -25,8 +25,8 @@ exports.login = async (req, res, next) => {
 		// Return success message with response 200 OK
 		res.status(200).json({
 			message: 'Login Successfully',
-			token: token,
-			name: process.env.USER
+			name: process.env.USER,
+			token: token
 		});
 
 		return;

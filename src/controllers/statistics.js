@@ -2,24 +2,16 @@ const Statistics = require('../models/statistics');
 
 exports.getStaffStatistics = async (req, res, next) => {
 	try {
-		// Get the statistics for all staff members
-		const staffStatistics = await Statistics.getStaffStatistics();
+		let staffStatistics;
+		if (req.query.contract && req.query.contract === '1') {
+			// Get the statistics for contracted staff members (on_contract = 1)
+			staffStatistics = await Statistics.getStaffStatistics(true);
+		} else {
+			// Get the statistics for all staff members
+			staffStatistics = await Statistics.getStaffStatistics();
+		}
 		// Return the data with success message
 		res.status(200).json({ message: 'Staff members statistics has been fetched successfully!', staff: staffStatistics });
-	} catch (error) {
-		if (!error.statusCode) {
-			error.statusCode = 500;
-		}
-		next(error);
-	}
-};
-
-exports.getContractedStatistics = async (req, res, next) => {
-	try {
-		// Get the statistics for contracted staff members
-		const staffStatistics = await Statistics.getStaffStatistics(true);
-		// Return the data with success message
-		res.status(200).json({ message: 'Contracted staff members statistics has been fetched successfully!', staff: staffStatistics });
 	} catch (error) {
 		if (!error.statusCode) {
 			error.statusCode = 500;
