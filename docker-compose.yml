@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  app:
+    image: node:latest
+    working_dir: /home/node/app
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NODE_PORT=3000
+    command: bash -c "setup/init.sh"
